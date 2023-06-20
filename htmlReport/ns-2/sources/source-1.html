@@ -1,0 +1,184 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > BookServiceImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.springassignment.bookservice.service</a>
+</div>
+
+<h1>Coverage Summary for Class: BookServiceImpl (com.springassignment.bookservice.service)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BookServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (32/32)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.springassignment.bookservice.service;
+&nbsp;
+&nbsp;import com.springassignment.bookservice.dto.BookDto;
+&nbsp;import com.springassignment.bookservice.dto.BookRequestDto;
+&nbsp;import com.springassignment.bookservice.model.Book;
+&nbsp;import com.springassignment.bookservice.repository.BookRepository;
+&nbsp;import lombok.RequiredArgsConstructor;
+&nbsp;import lombok.extern.slf4j.Slf4j;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;import java.util.stream.Collectors;
+&nbsp;
+&nbsp;@Service
+<b class="fc">&nbsp;@RequiredArgsConstructor</b>
+<b class="fc">&nbsp;@Slf4j</b>
+&nbsp;public class BookServiceImpl implements BookService{
+&nbsp;    private final BookRepository bookRepository;
+&nbsp;    @Override
+&nbsp;    public List&lt;BookDto&gt; getAllBooks() {
+<b class="fc">&nbsp;        List&lt;Book&gt; bookList = bookRepository.findAll();</b>
+<b class="fc">&nbsp;        log.info(bookList.get(0).getName());</b>
+<b class="fc">&nbsp;    return bookList.stream().map(this::mapToBookDto).collect(Collectors.toList());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Book getBookById(Long id){
+<b class="fc">&nbsp;        return bookRepository.getById(id);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void addBook(BookRequestDto bookRequestDto) {
+&nbsp;    Book book =
+<b class="fc">&nbsp;        Book.builder()</b>
+<b class="fc">&nbsp;            .name(bookRequestDto.getName())</b>
+<b class="fc">&nbsp;            .author(bookRequestDto.getAuthor())</b>
+<b class="fc">&nbsp;            .coverSource(bookRequestDto.getCoverSource())</b>
+<b class="fc">&nbsp;            .description(bookRequestDto.getDescription())</b>
+<b class="fc">&nbsp;                .price(bookRequestDto.getPrice())</b>
+<b class="fc">&nbsp;            .build();</b>
+<b class="fc">&nbsp;        bookRepository.save(book);</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;BookDto&gt; getBooksFromOrder(List&lt;Long&gt; booksOrder) {
+<b class="fc">&nbsp;        List&lt;BookDto&gt; bookDtoList = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        return booksOrder.stream()</b>
+<b class="fc">&nbsp;                .map(id-&gt;mapToBookDto(getBookById(id)))</b>
+<b class="fc">&nbsp;                .collect(Collectors.toList());</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public String deleteBook(Long id) {
+<b class="fc">&nbsp;        bookRepository.deleteById(id);</b>
+<b class="fc">&nbsp;        return &quot;Deleted&quot;;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Optional&lt;Book&gt; getBook(Long id) {
+<b class="fc">&nbsp;        return bookRepository.findById(id);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void updateBook(Book book) {
+<b class="fc">&nbsp;        bookRepository.save(book);</b>
+&nbsp;
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    private BookDto  mapToBookDto(Book book) {
+<b class="fc">&nbsp;        log.info(book.toString());</b>
+<b class="fc">&nbsp;        return BookDto.builder().id(book.getId())</b>
+<b class="fc">&nbsp;                .name(book.getName())</b>
+<b class="fc">&nbsp;                .price(book.getPrice())</b>
+<b class="fc">&nbsp;                .author(book.getAuthor())</b>
+<b class="fc">&nbsp;                .description(book.getDescription())</b>
+<b class="fc">&nbsp;                .coverSource(book.getCoverSource())</b>
+<b class="fc">&nbsp;                .build();</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-06-16 08:35</div>
+</div>
+</body>
+</html>
