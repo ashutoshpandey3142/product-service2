@@ -11,7 +11,7 @@
 	<groupId>com.springassignment</groupId>
 	<artifactId>product-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>book-service</name>
+	<name>product-service</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -21,7 +21,7 @@
 		<java.version>11</java.version>
 	</properties>
 
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
